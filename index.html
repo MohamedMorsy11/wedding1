@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sarah & Omar — 07 · 07 · 2027</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Great+Vibes&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* =============================================
+       DESIGN TOKENS (ROYAL EMERALD & BURNISHED GOLD)
+    ============================================= */
+    :root {
+      --emerald:       #053B2E; /* الأخضر الزمردي الفاخر */
+      --emerald-dark:  #021F18;
+      --emerald-light: #0A5241;
+      --gold:          #D4AF37; /* الذهب الملكي المصقول */
+      --gold-glow:     rgba(212, 175, 55, 0.25);
+      --cream:         #FDFCFA; /* خلفية عاجية صافية للتناقض */
+      --white:         #FFFFFF;
+      --text-dark:     #021F18;
+      --text-body:     #3A4D48;
+      --text-light:    #FFFFFF;
+      --shadow-sm:     rgba(5, 59, 46, 0.06);
+      --shadow-md:     rgba(5, 59, 46, 0.15);
+    }
+
+    /* =============================================
+       RESET & BASE
+    ============================================= */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      background: var(--cream);
+      color: var(--text-body);
+      line-height: 1.85;
+      overflow-x: hidden;
+    }
+    img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    input, button, select, textarea { font-family: inherit; }
+
+    /* =============================================
+       FLOATING GOLD PARTICLES ANIMATION
+    ============================================= */
+    .particles-container {
+      position: absolute; inset: 0; pointer-events: none; overflow: hidden; z-index: 1;
+    }
+    .particle {
+      position: absolute; background: linear-gradient(135deg, #FFE07D, var(--gold));
+      border-radius: 4px 1px 5px 2px; opacity: 0.6;
+      animation: floatParticles 12s linear infinite;
+    }
+    @keyframes floatParticles {
+      0% { transform: translateY(105vh) translateX(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.6; }
+      90% { opacity: 0.6; }
+      100% { transform: translateY(-5vh) translateX(100px) rotate(720deg); opacity: 0; }
+    }
+
+    /* =============================================
+       SCROLL REVEAL (INTERSECTION OBSERVER)
+    ============================================= */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(35px);
+      transition: opacity 1.1s cubic-bezier(0.215, 0.610, 0.355, 1),
+                  transform 1.1s cubic-bezier(0.215, 0.610, 0.355, 1);
+    }
+    .fade-in.visible { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.15s; }
+    .delay-2 { transition-delay: 0.3s; }
+    .delay-3 { transition-delay: 0.45s; }
+
+    /* =============================================
+       BOTANICAL GOLD DIVIDER
+    ============================================= */
+    .botanical-divider {
+      display: flex; justify-content: center; align-items: center; padding: 2rem 0; background: var(--cream);
+    }
+    .botanical-divider svg { width: 100%; max-width: 260px; height: auto; }
+
+    /* =============================================
+       SHARED HEADERS
+    ============================================= */
+    .s-header { text-align: center; margin-bottom: 5rem; padding: 0 1rem; }
+    .s-eyebrow {
+      display: block; font-size: 0.7rem; font-weight: 400; letter-spacing: 0.45em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1rem;
+    }
+    .s-title {
+      font-family: 'Cormorant Garamond', serif; font-weight: 300;
+      font-size: clamp(2.2rem, 5vw, 3.5rem); color: var(--text-dark);
+      line-height: 1.2; letter-spacing: 0.02em;
+    }
+    .s-sub {
+      font-size: 0.9rem; font-weight: 300; color: var(--text-muted);
+      margin-top: 1rem; line-height: 1.8; font-style: italic;
+    }
+
+    /* =============================================
+       1. HERO SECTION (DARK EMERALD PRESTIGE)
+    ============================================= */
+    #hero {
+      position: relative; width: 100%; height: 100vh; min-height: 650px;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background-image: url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80');
+      background-size: cover; background-position: center;
+    }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(3, 31, 24, 0.4), rgba(2, 31, 24, 0.85));
+    }
+    .hero-content { position: relative; z-index: 2; text-align: center; color: var(--white); padding: 2rem; }
+    .hero-eyebrow {
+      display: block; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.5em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
+    }
+    .hero-names {
+      font-family: 'Great Vibes', cursive; font-size: clamp(4rem, 13vw, 10rem);
+      line-height: 0.9; color: var(--white); text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+      display: block; background: linear-gradient(to bottom, #FFFFFF 60%, var(--gold));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin: 2rem 0; opacity: 0.7; }
+    .hero-divider-line { flex: 0 0 70px; height: 1px; background: var(--gold); }
+    .hero-divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--white); box-shadow: 0 0 8px var(--gold); }
+    .hero-date {
+      font-family: 'Cormorant Garamond', serif; font-size: clamp(1.1rem, 2.8vw, 1.5rem);
+      font-weight: 300; letter-spacing: 0.4em; color: var(--white);
+    }
+    .scroll-cue {
+      position: absolute; bottom: 3rem; left: 50%; transform: translateX(-50%); z-index: 3;
+      display: flex; flex-direction: column; align-items: center; gap: 0.6rem; cursor: pointer;
+      animation: float 2.5s ease-in-out infinite;
+    }
+    .scroll-cue span { font-size: 0.6rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); }
+    .scroll-cue-arrow { width: 16px; height: 16px; border-right: 1px solid var(--gold); border-bottom: 1px solid var(--gold); transform: rotate(45deg); }
+    @keyframes float { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(10px); } }
+
+    /* =============================================
+       2. OUR STORY SECTION
+    ============================================= */
+    #story { background: var(--cream); padding: 8rem 2rem; }
+    .milestone { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; margin-bottom: 8rem; }
+    .milestone:last-child { margin-bottom: 0; }
+    .milestone.flip { direction: rtl; }
+    .milestone.flip > * { direction: ltr; }
+    .m-img-wrap { position: relative; aspect-ratio: 4 / 5; overflow: hidden; border: 1px solid var(--gold); padding: 8px; background: var(--white); }
+    .m-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.8s ease; }
+    .m-img-wrap:hover .m-img { transform: scale(1.04); }
+    .m-text { padding: 0.5rem 0; }
+    .m-chapter { display: block; font-size: 0.65rem; font-weight: 500; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .m-script-title { font-family: 'Great Vibes', cursive; font-size: clamp(2.2rem, 4vw, 3rem); color: var(--text-dark); line-height: 1.1; margin-bottom: 1.3rem; display: block; }
+    .m-text p { font-size: 0.95rem; font-weight: 300; color: var(--text-body); line-height: 2; max-width: 450px; text-align: justify; }
+    .m-text p + p { margin-top: 1rem; }
+
+    /* =============================================
+       3. THE DETAILS (EMERALD HIGH HOVER CARDS)
+    ============================================= */
+    #details { background: var(--emerald-dark); padding: 8rem 2rem; position: relative; }
+    #details .s-title { color: var(--white); }
+    .details-cards { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 2.5rem; position: relative; z-index: 2; }
+    .d-card {
+      background: var(--emerald); border: 1px solid var(--gold); padding: 4rem 3rem; text-align: center;
+      box-shadow: 0 4px 30px rgba(0,0,0,0.2); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
+    }
+    /* تأثير التحريك والفتل الإبداعي المطلب في التصميم الحركي المرفق */
+    .d-card:hover {
+      transform: translateY(-10px) rotate(1.5deg) scale(1.03);
+      box-shadow: 0 15px 40px var(--gold-glow);
+    }
+    .d-icon { font-size: 1.5rem; display: block; color: var(--gold); margin-bottom: 1.5rem; }
+    .d-label { display: block; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem; }
+    .d-date { font-family: 'Cormorant Garamond', serif; color: var(--white); }
+    .d-day { display: block; font-size: clamp(4rem, 8vw, 6.5rem); line-height: 1; font-weight: 300; color: var(--white); }
+    .d-month-year { display: block; font-size: 1rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-top: 0.5rem; }
+    .d-time { display: block; font-size: 1.05rem; font-style: italic; color: rgba(255,255,255,0.7); margin-top: 1rem; }
+    .d-type-title { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; font-weight: 300; color: var(--white); margin-bottom: 0.8rem; }
+    .d-venue-addr { font-size: 0.85rem; color: rgba(255,255,255,0.65); line-height: 1.8; margin-bottom: 2rem; }
+    .btn-map {
+      display: inline-flex; align-items: center; gap: 0.6rem; font-family: 'Jost', sans-serif;
+      font-size: 0.7rem; font-weight: 400; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--white); text-decoration: none; border: 1px solid var(--gold);
+      padding: 0.8rem 2rem; border-radius: 0; background: transparent; transition: all 0.4s ease; cursor: pointer;
+    }
+    .btn-map:hover { background: var(--gold); color: var(--emerald-dark); }
+
+    /* =============================================
+       4. COUNTDOWN BANNER
+    ============================================= */
+    #countdown { background: var(--emerald); border-top: 1px solid var(--gold); padding: 6rem 2rem; text-align: center; }
+    .cd-eyebrow { display: block; font-size: 0.65rem; font-weight: 400; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1rem; }
+    .cd-grid { display: flex; justify-content: center; align-items: center; gap: clamp(1rem, 4vw, 4.5rem); }
+    .cd-unit { text-align: center; min-width: 70px; }
+    .cd-num { display: block; font-family: 'Cormorant Garamond', serif; font-size: clamp(2.5rem, 9vw, 7rem); font-weight: 300; color: var(--white); line-height: 1; }
+    .cd-lbl { display: block; font-size: 0.6rem; font-weight: 400; letter-spacing: 0.3em; text-transform: uppercase; color: var(--gold); margin-top: 0.8rem; }
+    .cd-sep { font-family: 'Cormorant Garamond', serif; font-size: clamp(2rem, 4vw, 4rem); color: rgba(212,175,55,0.3); font-weight: 300; }
+
+    /* =============================================
+       5. PHOTO GALLERY
+    ============================================= */
+    #gallery { background: var(--cream); padding: 8rem 2rem; }
+    .gallery-grid { max-width: 1080px; margin: 0 auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+    .g-item { overflow: hidden; border: 1px solid rgba(212,175,55,0.3); aspect-ratio: 1; cursor: pointer; }
+    .g-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+    .g-item:nth-child(7) { grid-column: span 2; aspect-ratio: 16/9; }
+    .g-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.7s cubic-bezier(0.25, 1, 0.5, 1); }
+    .g-item:hover .g-img { transform: scale(1.06); border: 1px solid var(--gold); }
+
+    /* =============================================
+       6. RSVP SECTION (CELEBRATION PARTICLES EFFECT)
+    ============================================= */
+    #rsvp { background: var(--emerald-dark); padding: 8rem 2rem; position: relative; overflow: hidden; }
+    #rsvp .s-title { color: var(--white); }
+    .rsvp-card {
+      max-width: 560px; margin: 0 auto; background: var(--emerald); border: 1px solid var(--gold);
+      padding: 4rem 3.5rem; box-shadow: 0 15px 50px rgba(0,0,0,0.4); position: relative; z-index: 2;
+    }
+    .rsvp-form { display: flex; flex-direction: column; gap: 2.2rem; }
+    .f-group { display: flex; flex-direction: column; gap: 0.6rem; }
+    .f-label { font-size: 0.65rem; font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase; color: var(--gold); }
+    .f-input {
+      font-family: 'Jost', sans-serif; font-size: 0.95rem; font-weight: 300; color: var(--white);
+      background: transparent; border: none; border-bottom: 1px solid rgba(212,175,55,0.4); padding: 0.6rem 0;
+      outline: none; transition: border-color 0.3s ease; width: 100%;
+    }
+    .f-input:focus { border-bottom-color: var(--gold); }
+    .f-input::placeholder { color: rgba(255,255,255,0.3); font-style: italic; }
+    .radio-row { display: flex; gap: 2.5rem; flex-wrap: wrap; }
+    .radio-opt { display: flex; align-items: center; gap: 0.6rem; cursor: pointer; }
+    .radio-opt input[type="radio"] {
+      appearance: none; -webkit-appearance: none; width: 16px; height: 16px;
+      border: 1px solid var(--gold); border-radius: 50%; cursor: pointer; transition: all 0.3s ease; flex-shrink: 0;
+    }
+    .radio-opt input[type="radio"]:checked {
+      background: var(--gold); box-shadow: inset 0 0 0 3px var(--emerald);
+    }
+    .radio-opt span { font-size: 0.9rem; font-weight: 400; color: var(--white); }
+    .btn-rsvp {
+      align-self: center; margin-top: 0.5rem; font-family: 'Jost', sans-serif; font-size: 0.75rem;
+      font-weight: 400; letter-spacing: 0.35em; text-transform: uppercase;
+      background: var(--gold); color: var(--emerald-dark); border: none;
+      padding: 1.1rem 3rem; border-radius: 0; cursor: pointer; transition: all 0.3s ease; font-weight: 500;
+    }
+    .btn-rsvp:hover { background: var(--white); color: var(--emerald-dark); transform: translateY(-2px); }
+    .rsvp-note { text-align: center; font-size: 0.8rem; color: rgba(255,255,255,0.5); margin-top: 1.5rem; }
+    .rsvp-thanks { display: none; text-align: center; padding: 2rem 0; }
+    .rsvp-thanks .ty-script { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: var(--gold); display: block; margin-bottom: 1rem; }
+    .rsvp-thanks p { font-size: 0.95rem; color: var(--white); line-height: 1.9; }
+
+    /* =============================================
+       7. FOOTER SECTION
+    ============================================= */
+    footer { background: var(--emerald-dark); border-top: 1px solid rgba(212,175,55,0.2); padding: 6rem 2rem 4rem; text-align: center; position: relative; }
+    .ft-script { display: block; font-family: 'Great Vibes', cursive; font-size: clamp(2.8rem, 7vw, 5rem); color: var(--gold); margin-bottom: 0.5rem; }
+    .ft-tagline { display: block; font-size: 0.7rem; font-weight: 300; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin-bottom: 1rem; }
+    .ft-date { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 300; letter-spacing: 0.35em; color: var(--white); margin-bottom: 4rem; }
+    .music-wrap { position: relative; display: flex; flex-direction: column; align-items: center; gap: 0.85rem; margin-bottom: 3.5rem; z-index: 2; }
+    .music-player {
+      display: inline-flex; align-items: center; gap: 1.2rem; border: 1px solid rgba(212,175,55,0.3);
+      padding: 0.8rem 2rem; cursor: pointer; transition: all 0.3s ease; background: transparent;
+    }
+    .music-player:hover { border-color: var(--gold); background: rgba(255,255,255,0.03); }
+    .play-btn { width: 32px; height: 32px; border: 1px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .play-btn svg { fill: var(--gold); }
+    .play-icon { display: block; margin-left: 2px; }
+    .pause-icon { display: none; }
+    .playing .play-icon { display: none; }
+    .playing .pause-icon { display: block; }
+    .music-info { text-align: left; }
+    .music-title { display: block; font-size: 0.85rem; color: rgba(255,255,255,0.8); }
+    .music-hint { display: block; font-size: 0.6rem; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); margin-top: 0.1rem; }
+    .music-note { font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+    .ft-bottom { font-size: 0.65rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(255,255,255,0.2); }
+
+    /* =============================================
+       RESPONSIVE MEDIA QUERIES (MOBILE OPTIMIZED)
+    ============================================= */
+    @media (max-width: 768px) {
+      .milestone { grid-template-columns: 1fr; gap: 2.5rem; margin-bottom: 5rem; }
+      .milestone.flip { direction: ltr; }
+      .m-text p { max-width: 100%; }
+      .m-img-wrap { aspect-ratio: 4/3; }
+      .details-cards { grid-template-columns: 1fr; max-width: 450px; margin: 0 auto; gap: 2rem; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .g-item:nth-child(1), .g-item:nth-child(7) { grid-column: span 2; }
+      .rsvp-card { padding: 3rem 2rem; }
+      .cd-sep { display: none; }
+      .cd-grid { gap: 1.5rem; }
+    }
+    @media (max-width: 480px) {
+      #story, #details, #countdown, #gallery, #rsvp { padding: 5.5rem 1.25rem; }
+      .gallery-grid { grid-template-columns: 1fr; gap: 0.75rem; }
+      .g-item:nth-child(1), .g-item:nth-child(7) { grid-column: span 1; aspect-ratio: 4/3; }
+      .rsvp-card { padding: 2.5rem 1.5rem; }
+      .radio-row { flex-direction: column; gap: 1.2rem; align-items: flex-start; }
+      .cd-grid { gap: 0.8rem; }
+      .cd-unit { min-width: 60px; }
+    }
+  </style>
+</head>
+<body>
+
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="particles-container" id="hero-particles"></div>
+    <div class="hero-content fade-in visible">
+      <span class="hero-eyebrow">You are invited to the wedding of</span>
+      <h1 class="hero-names">Sarah & Omar</h1>
+      <div class="hero-divider">
+        <div class="hero-divider-line"></div>
+        <div class="hero-divider-dot"></div>
+        <div class="hero-divider-line"></div>
+      </div>
+      <span class="hero-date">07 · 07 · 2027</span>
+    </div>
+    <div class="scroll-cue" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">
+      <span>Our Story</span>
+      <div class="scroll-cue-arrow"></div>
+    </div>
+  </section>
+
+  <div class="botanical-divider fade-in">
+    <svg viewBox="0 0 260 44" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="22" stroke="#D4AF37" stroke-width="0.7" opacity="0.6" x2="98" y2="22"/>
+      <line x1="162" y1="22" stroke="#D4AF37" stroke-width="0.7" opacity="0.6" x2="260" y2="22"/>
+      <circle cx="130" cy="22" r="3.5" stroke="#D4AF37" stroke-width="0.8" fill="none"/>
+      <path d="M108 22 Q113 13 119 19" stroke="#D4AF37" stroke-width="0.7" fill="none"/>
+      <path d="M152 22 Q147 13 141 19" stroke="#D4AF37" stroke-width="0.7" fill="none"/>
+      <path d="M101 22 Q106 11 113 17" stroke="#D4AF37" stroke-width="0.65" fill="none"/>
+      <path d="M159 22 Q154 11 147 17" stroke="#D4AF37" stroke-width="0.65" fill="none"/>
+    </svg>
+  </div>
+
+  <section id="story">
+    <div class="s-header fade-in">
+      <span class="s-eyebrow">How It All Began</span>
+      <h2 class="s-title">Our Story</h2>
+      <p class="s-sub">Every love story is beautiful, but ours is our favourite.</p>
+    </div>
+
+    <div class="story-wrap">
+      <div class="milestone fade-in">
+        <div class="m-img-wrap">
+          <img src="https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?auto=format&fit=crop&w=800&q=80" alt="Sarah and Omar happy moment" class="m-img">
+        </div>
+        <div class="m-text">
+          <span class="m-chapter">Chapter I</span>
+          <h3 class="m-script-title">A Chance Encounter</h3>
+          <p>It was a quiet autumn afternoon in 2019 when Sarah walked into the small bookshop on Riad Street, searching for a novel she'd been chasing for months. She found it — and found Omar reaching for the exact same copy at the exact same moment. Their hands met over the spine of a story, and somehow, their own story began writing itself right there.</p>
+          <p>They talked for two hours. Then another two. Neither of them noticed the sun had set until the shopkeeper gently switched off the lights around them.</p>
+        </div>
+      </div>
+
+      <div class="milestone flip fade-in">
+        <div class="m-img-wrap">
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80" alt="Sarah and Omar walking holding hands" class="m-img">
+        </div>
+        <div class="m-text">
+          <span class="m-chapter">Chapter II</span>
+          <h3 class="m-script-title">The Realization</h3>
+          <p>Months passed, and with each one, a quiet certainty settled deeper into both their hearts. It wasn't one grand moment — it was thousands of small ones. A coffee left on the desk before the other woke. A laugh so familiar it felt ancient. A silence so comfortable it felt like home.</p>
+          <p>Omar once told his sister: <em>"She makes the world feel like it's exactly the right size."</em> Sarah told her mother: <em>"He's the only place I've ever felt completely at ease."</em></p>
+        </div>
+      </div>
+
+      <div class="milestone fade-in">
+        <div class="m-img-wrap">
+          <img src="https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?auto=format&fit=crop&w=800&q=80" alt="Wedding proposal ring" class="m-img">
+        </div>
+        <div class="m-text">
+          <span class="m-chapter">Chapter III</span>
+          <h3 class="m-script-title">The Question</h3>
+          <p>On a warm July evening, under the stars above the hillside they'd walked on their third date, Omar stopped, turned to Sarah, and knelt on the very ground they'd sat on a hundred times before. He had no grand rehearsed speech — only the truest, simplest words he had ever spoken.</p>
+          <p><em>"Every version of my future starts with you in it. Will you be in all of them?"</em></p>
+          <p>She said yes before he had finished the sentence.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="details">
+    <div class="s-header fade-in">
+      <span class="s-eyebrow">Mark Your Calendar</span>
+      <h2 class="s-title">The Details</h2>
+    </div>
+
+    <div class="details-cards">
+      <div class="d-card fade-in delay-1">
+        <span class="d-icon">◇</span>
+        <span class="d-label">The Date & Time</span>
+        <div class="d-date">
+          <span class="d-day">07</span>
+          <span class="d-month-year">July · 2027</span>
+          <span class="d-time">Seven in the Evening</span>
+        </div>
+      </div>
+
+      <div class="d-card fade-in delay-2">
+        <span class="d-icon">◇</span>
+        <span class="d-label">The Venue</span>
+        <h3 class="d-type-title">Al Qasr Ballroom</h3>
+        <p class="d-venue-addr">
+          Grand Heritage Hotel<br>
+          King Abdullah II Street<br>
+          Amman, Jordan
+        </p>
+        <a class="btn-map" href="https://goo.gl/maps/bAun5Y5Lq6pD6v3b9" target="_blank" rel="noopener">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/>
+            <circle cx="12" cy="9" r="2.5"/>
+          </svg>
+          View on Google Maps
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section id="countdown">
+    <span class="cd-eyebrow fade-in">The Clock is Ticking</span>
+    <div class="cd-grid fade-in">
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-days">---</span>
+        <span class="cd-lbl">Days</span>
+      </div>
+      <span class="cd-sep" aria-hidden="true">·</span>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-hours">--</span>
+        <span class="cd-lbl">Hours</span>
+      </div>
+      <span class="cd-sep" aria-hidden="true">·</span>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-mins">--</span>
+        <span class="cd-lbl">Minutes</span>
+      </div>
+      <span class="cd-sep" aria-hidden="true">·</span>
+      <div class="cd-unit">
+        <span class="cd-num" id="cd-secs">--</span>
+        <span class="cd-lbl">Seconds</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery">
+    <div class="s-header fade-in">
+      <span class="s-eyebrow">Captured Moments</span>
+      <h2 class="s-title">Our Engagement</h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="g-item fade-in"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80" alt="Wedding wide" class="g-img"></div>
+      <div class="g-item fade-in delay-1"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="Wedding dance" class="g-img"></div>
+      <div class="g-item fade-in delay-1"><img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=600&q=80" alt="Celebration toast" class="g-img"></div>
+      <div class="g-item fade-in delay-2"><img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80" alt="Wedding rings" class="g-img"></div>
+      <div class="g-item fade-in delay-2"><img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=80" alt="Decorations" class="g-img"></div>
+      <div class="g-item fade-in delay-3"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Embrace portrait" class="g-img"></div>
+      <div class="g-item fade-in delay-3"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=80" alt="Sparklers wide" class="g-img"></div>
+    </div>
+  </section>
+
+  <section id="rsvp">
+    <div class="particles-container" id="rsvp-particles"></div>
+    <div class="s-header fade-in">
+      <span class="s-eyebrow">Join Our Celebration</span>
+      <h2 class="s-title">Will You Be There?</h2>
+    </div>
+
+    <div class="rsvp-card fade-in">
+      <div id="rsvp-inner">
+        <form class="rsvp-form" onsubmit="handleRSVP(event)" novalidate>
+          <div class="f-group">
+            <label class="f-label" for="f-name">Your Full Name</label>
+            <input class="f-input" type="text" id="f-name" placeholder="e.g. Layla & Khalid Hassan" required>
+          </div>
+
+          <div class="f-group">
+            <span class="f-label">Will you attend?</span>
+            <div class="radio-row">
+              <label class="radio-opt">
+                <input type="radio" name="attendance" value="yes" required>
+                <span>Joyfully Accepting</span>
+              </label>
+              <label class="radio-opt">
+                <input type="radio" name="attendance" value="no">
+                <span>Regretfully Declining</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="f-group">
+            <label class="f-label" for="f-guests">Number of Guests</label>
+            <input class="f-input" type="number" id="f-guests" min="1" max="10" placeholder="Including yourself" required>
+          </div>
+
+          <button type="submit" class="btn-rsvp">Confirm My Attendance</button>
+        </form>
+        <p class="rsvp-note">Kindly respond by 7 June, 2027</p>
+      </div>
+
+      <div class="rsvp-thanks" id="rsvp-thanks">
+        <span class="ty-script">Thank You</span>
+        <p>Your response has been received with joy.<br>We cannot wait to celebrate this day with you.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span class="ft-script fade-in">Sarah & Omar</span>
+    <span class="ft-tagline fade-in">Two hearts. One story.</span>
+    <span class="ft-date fade-in">07 · 07 · 2027</span>
+
+    <div class="music-wrap fade-in">
+      <div class="music-player" onclick="toggleMusic()" role="button" aria-label="Play background music">
+        <div class="play-btn" id="play-btn">
+          <svg class="play-icon" width="9" height="11" viewBox="0 0 9 11"><polygon points="0,0 9,5.5 0,11"/></svg>
+          <svg class="pause-icon" width="9" height="11" viewBox="0 0 9 11"><rect x="0" y="0" width="3" height="11"/><rect x="6" y="0" width="3" height="11"/></svg>
+        </div>
+        <div class="music-info">
+          <span class="music-title">Acoustic Wedding Melodies ♪</span>
+          <span class="music-hint">Click to play romantic background theme</span>
+        </div>
+      </div>
+      <span class="music-note">Music is not set to play automatically</span>
+    </div>
+
+    <p class="ft-bottom fade-in">With love · Sarah & Omar · 2027</p>
+    <audio id="wedding-audio" loop preload="none">
+      <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3" type="audio/mpeg">
+    </audio>
+  </footer>
+
+  <script>
+    // ── توليد رقاقات الذهب تلقائياً في الخلفية ──
+    function createGoldFlakes(containerId, count) {
+      const container = document.getElementById(containerId);
+      if(!container) return;
+      for (let i = 0; i < count; i++) {
+        const flake = document.createElement('div');
+        flake.classList.add('particle');
+        flake.style.left = Math.random() * 100 + '%';
+        flake.style.width = (Math.random() * 6 + 4) + 'px';
+        flake.style.height = flake.style.width;
+        flake.style.animationDelay = (Math.random() * 10) + 's';
+        flake.style.animationDuration = (Math.random() * 6 + 8) + 's';
+        container.appendChild(flake);
+      }
+    }
+    createGoldFlakes('hero-particles', 25);
+    createGoldFlakes('rsvp-particles', 20);
+
+    // ── Intersection Observer (Fade-in on scroll) ──
+    const io = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          io.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -40px 0px' });
+    document.querySelectorAll('.fade-in:not(.visible)').forEach(el => io.observe(el));
+
+    // ── Countdown Timer ──
+    function tick() {
+      const target = new Date('2027-07-07T19:00:00');
+      const now    = new Date();
+      const diff   = target - now;
+      if (diff <= 0) {
+        ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => { document.getElementById(id).textContent = '00'; });
+        return;
+      }
+      const d = Math.floor(diff / 86400000);
+      const h = Math.floor((diff % 86400000) / 3600000);
+      const m = Math.floor((diff % 3600000) / 60000);
+      const s = Math.floor((diff % 60000) / 1000);
+
+      document.getElementById('cd-days').textContent  = String(d).padStart(3,'0');
+      document.getElementById('cd-hours').textContent = String(h).padStart(2,'0');
+      document.getElementById('cd-mins').textContent  = String(m).padStart(2,'0');
+      document.getElementById('cd-secs').textContent  = String(s).padStart(2,'0');
+    }
+    tick(); setInterval(tick, 1000);
+
+    // ── Music Player Toggle ──
+    let musicPlaying = false;
+    function toggleMusic() {
+      const audio = document.getElementById('wedding-audio');
+      const btn   = document.getElementById('play-btn');
+      if (musicPlaying) { audio.pause(); btn.classList.remove('playing'); } 
+      else { audio.play().catch(() => {}); btn.classList.add('playing'); }
+      musicPlaying = !musicPlaying;
+    }
+
+    // ── RSVP UX Rules & Automation ──
+    const attendanceRadios = document.querySelectorAll('input[name="attendance"]');
+    const guestsInput = document.getElementById('f-guests');
+    attendanceRadios.forEach(radio => {
+      radio.addEventListener('change', (e) => {
+        if (e.target.value === 'no') {
+          guestsInput.value = '0'; guestsInput.disabled = true; guestsInput.removeAttribute('required'); guestsInput.style.borderBottomColor = ''; 
+        } else {
+          guestsInput.value = ''; guestsInput.disabled = false; guestsInput.setAttribute('required', '');
+        }
+      });
+    });
+
+    // ── Live Google Sheet Data Sync ──
+    function handleRSVP(e) {
+      e.preventDefault();
+      const name    = document.getElementById('f-name').value.trim();
+      const attend  = document.querySelector('input[name="attendance"]:checked');
+      const guests  = guestsInput.value;
+      let hasError = false;
+
+      if (!name) { document.getElementById('f-name').style.borderBottomColor = '#D4AF37'; hasError = true; } 
+      else { document.getElementById('f-name').style.borderBottomColor = ''; }
+      if (!attend) { hasError = true; }
+      if (attend && attend.value === 'yes' && (!guests || guests < 1)) { guestsInput.style.borderBottomColor = '#D4AF37'; hasError = true; } 
+      else { guestsInput.style.borderBottomColor = ''; }
+      if (hasError) return;
+
+      const submitBtn = document.querySelector('.btn-rsvp');
+      submitBtn.textContent = "Sending..."; submitBtn.disabled = true;
+
+      // ضع رابط الـ Web App النصف من الـ Apps Script هنا ليربط أوتوماتيكياً
+      const googleSheetUrl = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"; 
+      
+      fetch(googleSheetUrl, {
+        method: "POST", mode: "no-cors", headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: name, attendance: attend.value, guests: guests })
+      })
+      .then(() => {
+         document.getElementById('rsvp-inner').style.display   = 'none';
+         document.getElementById('rsvp-thanks').style.display  = 'block';
+      })
+      .catch(() => {
+         alert("Connection error, please try again.");
+         submitBtn.textContent = "Confirm My Attendance"; submitBtn.disabled = false;
+      });
+    }
+
+    // Smooth Anchor Scroll
+    document.querySelectorAll('a[href^="#"]').forEach(a => {
+      a.addEventListener('click', e => {
+        const target = document.querySelector(a.getAttribute('href'));
+        if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+      });
+    });
+  </script>
+</body>
+</html>
