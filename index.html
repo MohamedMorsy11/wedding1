@@ -119,15 +119,21 @@
     .hero-content { position: relative; z-index: 2; text-align: center; color: var(--white); padding: 2rem; }
     .hero-eyebrow {
       display: block; font-size: 0.72rem; font-weight: 400; letter-spacing: 0.5em;
-      text-transform: uppercase; color: var(--gold); margin-bottom: 2rem;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 1.5rem;
     }
     .hero-names {
-      font-family: 'Great Vibes', cursive; font-size: clamp(4rem, 13vw, 10rem);
-      line-height: 0.9; color: var(--white); text-shadow: 0 4px 30px rgba(0,0,0,0.4);
-      display: block; background: linear-gradient(to bottom, #FFFFFF 60%, var(--gold));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-family: 'Great Vibes', cursive; 
+      font-size: clamp(4rem, 13vw, 10rem);
+      line-height: 1.3; /* تم زيادتها لحل مشكلة قطع الحروف العلوية والسفلية تماماً */
+      color: var(--white); 
+      text-shadow: 0 4px 30px rgba(0,0,0,0.4);
+      display: block; 
+      padding: 0.15em 0; /* مساحة حشو داخلية لمنع حواف الـ Clip من قص المظهر الجمالي للخط */
+      background: linear-gradient(to bottom, #FFFFFF 45%, var(--gold));
+      -webkit-background-clip: text; 
+      -webkit-text-fill-color: transparent;
     }
-    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin: 2rem 0; opacity: 0.7; }
+    .hero-divider { display: flex; align-items: center; justify-content: center; gap: 1.2rem; margin: 1.5rem 0; opacity: 0.7; }
     .hero-divider-line { flex: 0 0 70px; height: 1px; background: var(--gold); }
     .hero-divider-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--white); box-shadow: 0 0 8px var(--gold); }
     .hero-date {
@@ -170,7 +176,6 @@
       background: var(--emerald); border: 1px solid var(--gold); padding: 4rem 3rem; text-align: center;
       box-shadow: 0 4px 30px rgba(0,0,0,0.2); transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.5s ease;
     }
-    /* تأثير التحريك والفتل الإبداعي المطلب في التصميم الحركي المرفق */
     .d-card:hover {
       transform: translateY(-10px) rotate(1.5deg) scale(1.03);
       box-shadow: 0 15px 40px var(--gold-glow);
@@ -361,7 +366,7 @@
 
       <div class="milestone flip fade-in">
         <div class="m-img-wrap">
-          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80" alt="Sarah and Omar walking holding hands" class="m-img">
+          <img src="https://images.unsplash.com/photo-1529636798458-92182e662485?auto=format&fit=crop&w=800&q=80" alt="Sarah and Omar walking holding hands in a field at sunset shot from behind" class="m-img">
         </div>
         <div class="m-text">
           <span class="m-chapter">Chapter II</span>
@@ -455,15 +460,23 @@
     </div>
 
     <div class="gallery-grid">
-      <div class="g-item fade-in"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80" alt="Wedding wide" class="g-img"></div>
-      <div class="g-item fade-in delay-1"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="Wedding dance" class="g-img"></div>
-      <div class="g-item fade-in delay-1"><img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=600&q=80" alt="Celebration toast" class="g-img"></div>
+      <div class="g-item fade-in"><img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=80" alt="Beautiful wedding romance couple wide" class="g-img"></div>
+      <div class="g-item fade-in delay-1"><img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=600&q=80" alt="Groom hugging bride happily" class="g-img"></div>
+      <div class="g-item fade-in delay-1"><img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?auto=format&fit=crop&w=600&q=80" alt="Wedding celebration reception and dancing" class="g-img"></div>
       <div class="g-item fade-in delay-2"><img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=600&q=80" alt="Wedding rings" class="g-img"></div>
-      <div class="g-item fade-in delay-2"><img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=80" alt="Decorations" class="g-img"></div>
-      <div class="g-item fade-in delay-3"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Embrace portrait" class="g-img"></div>
-      <div class="g-item fade-in delay-3"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=80" alt="Sparklers wide" class="g-img"></div>
+      <div class="g-item fade-in delay-2"><img src="https://images.unsplash.com/photo-1469371670807-013ccf25f16a?auto=format&fit=crop&w=600&q=80" alt="Elegant wedding table centerpiece arrangement aesthetic" class="g-img"></div>
+      <div class="g-item fade-in delay-3"><img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=600&q=80" alt="Bride and groom romantic embrace portrait" class="g-img"></div>
+      <div class="g-item fade-in delay-3"><img src="https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=1200&q=80" alt="Happy wedding sparkles celebrate wide" class="g-img"></div>
     </div>
   </section>
+
+  <div class="botanical-divider fade-in" style="background:linear-gradient(to bottom, var(--cream), var(--emerald-dark)); padding-bottom: 4rem;">
+    <svg viewBox="0 0 260 44" xmlns="http://www.w3.org/2000/svg">
+      <line x1="0" y1="22" stroke="#D4AF37" stroke-width="0.7" opacity="0.6" x2="98" y2="22"/>
+      <line x1="162" y1="22" stroke="#D4AF37" stroke-width="0.7" opacity="0.6" x2="260" y2="22"/>
+      <circle cx="130" cy="22" r="3.5" stroke="#D4AF37" stroke-width="0.8" fill="none"/>
+    </svg>
+  </div>
 
   <section id="rsvp">
     <div class="particles-container" id="rsvp-particles"></div>
@@ -628,7 +641,7 @@
       const submitBtn = document.querySelector('.btn-rsvp');
       submitBtn.textContent = "Sending..."; submitBtn.disabled = true;
 
-      // ضع رابط الـ Web App النصف من الـ Apps Script هنا ليربط أوتوماتيكياً
+      // ضع رابط الـ Web App المأخوذ من الـ Apps Script هنا ليربط أوتوماتيكياً بجوجل شيت لايف
       const googleSheetUrl = "YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE"; 
       
       fetch(googleSheetUrl, {
